@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        @font-face {
+            font-family: 'iconfont';
+            /* project id 1978527 */
+            src: url('//at.alicdn.com/t/font_1978527_350hxmlv937.eot');
+            src: url('//at.alicdn.com/t/font_1978527_350hxmlv937.eot?#iefix') format('embedded-opentype'),
+                url('//at.alicdn.com/t/font_1978527_350hxmlv937.woff2') format('woff2'),
+                url('//at.alicdn.com/t/font_1978527_350hxmlv937.woff') format('woff'),
+                url('//at.alicdn.com/t/font_1978527_350hxmlv937.ttf') format('truetype'),
+                url('//at.alicdn.com/t/font_1978527_350hxmlv937.svg#iconfont') format('svg');
+        }
+
+        .iconfont {
+            font-family: "iconfont" !important;
+            font-size: 1rem;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+
+        body,
+        ul,
+        li {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button {
+            margin: 0;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/head.css">
+    <link rel="stylesheet" href="./css/swipe.css">
+</head>
+
+<body>
+    <div id="app">
+        <!-- 顶部区域 -->
+        <div class="header">
+
+            <div class="head">
+                <div class="logo">
+                    <a href="#">
+                        <i class="iconfont">&#xe6b4;</i>
+                    </a>
+                </div>
+
+                <div class="right">
+                    <a href="#" class="search">
+                        <i class="iconfont">&#xe627;</i>
+                    </a>
+
+                    <a href="#" class="face">登录</a>
+                    <button>下载App</button>
+                </div>
+            </div>
+
+
+            <ul :class="[isnav ? navx:navy]">
+                <li v-for="adds in add" class="nav-body">
+                    <a href="#">
+                        {{ adds.title }}
+                    </a>
+                </li>
+                <div class="iconfont btn" @click="isxy">&#xe63c;</div>
+            </ul>
+        </div>
+
+        <div class="m-hode">
+            <div class="home-slide">
+                <ul class="swipe-wrap" :style="swipeStyle">
+                    <li v-for="swipes in swipe">
+                        <a href="#">
+                            <img :src="swipes.poster" alt="">
+                            <span>{{ swipes.title}}</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="video-list-box">
+                <ul class="video-list">
+                    <li v-for="video in videos" :key="video.id">
+                        <img :src="video.poster" alt="">
+                        <span>{{ video.title }}</span>
+                        <span class="video-left"><i class="iconfont">&#xe78f;</i>{{ video.play>10000 ? video.play/10000+'万':video.play }}</span>
+                        <span class="video-right"><i class="iconfont">&#xe612;</i>{{ video.rank>10000 ? video.rank/10000+'万':video.rank }}</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+        const vm = new Vue({
+            el: "#app",
+            data: {
+                add: [],
+                isnav: true,
+                navx: 'navx',
+                navy: 'navy',
+                swipe: [],
+                videos:[],
+            },
+            created() {
+                axios.all([
+                    axios.get('https://developer.duyiedu.com/vue/bz/nav'),
+                    axios.get('https://developer.duyiedu.com/vue/bz/banner'),
+                    axios.get('https://developer.duyiedu.com/vue/bz/video',{params:{
+                        start:0,
+                        offset:12,
+                    }}),
+                ]).then(axios.spread((aRes, bRes,cRes) => {
+                    this.add = aRes.data.data;
+                    this.swipe = bRes.data.data;
+                    this.videos = cRes.data.data;
+                }))
+            },
+            methods: {
+                isxy() {
+                    this.isnav = !this.isnav;
+                },
+                autoMove() {
+                    setTimeout(() => {
+                        this.swipeStyle.left = this.swipeStyle.left - '100%';
+                    }, 1500);
+                },
+            }
+
+        })
+    </script>
+</body>
+
+</html>

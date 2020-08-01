@@ -1,0 +1,97 @@
+
+#app{
+    width: 100vw;
+    height: 100vh;
+}
+.header{
+    width: 100vw;
+    height: 12vh;
+    margin: 0 auto;
+    top: 0;
+    left: 5vw;
+    padding-bottom: 1vh;
+    border-bottom: #999 1px solid;
+}
+.head{
+    width: 90vw;
+    margin: auto;
+    padding-top: 2vh;
+    display: flex;
+    justify-content: space-between;
+}
+.header .logo .iconfont{
+    color: #fb7299;
+    font-size: 4vh;
+}
+
+.right .search{
+    color: #cccccc;
+}
+.right .face{
+    width: 7vw;
+    height: 4vh;
+    line-height: 4vh;
+    text-align: center;
+    display: inline-block;
+    border-radius: 50%;
+    font-size: 2vw;
+    font-weight: 600;
+
+    color: #fb7299;
+    background-color: #ccc;
+}
+.right button{
+    width: 22vw;
+    height: 4vh;
+    border-radius: 5%;
+    border: none;
+    color: #fff;
+    background-color: #fb7299;
+}
+
+.header ul{
+    padding: 5vw 0;
+    position: relative;
+    display: flex;
+    background-color: #fff;
+}
+.navy{
+    flex-wrap: wrap;
+    z-index: 99;
+}
+.navy .nav-body{
+    flex: 0 0 14%;
+    padding-top: 2vh;
+    text-align: center;
+}
+.navx{
+    overflow: scroll;
+}
+.navx::-webkit-scrollbar{
+    display: none;
+}
+.navx .nav-body{
+    flex: 0 0 16%;
+    text-align: center;
+}
+.nav-body a{
+    color: #333;
+    font-size: 4vw;
+}
+
+.header ul .btn{
+    border: none;
+    position: fixed;
+    color: #ccc;
+    cursor: pointer;
+    background-color: #fff;
+}
+.header .navx .btn{
+    top: 9.5vh;
+    right: 3vw;
+}
+.header .navy .btn{
+    width: 100vw;
+    position: relative;
+    text-align: center;
+}
